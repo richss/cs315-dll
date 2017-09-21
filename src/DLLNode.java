@@ -2,7 +2,7 @@
  * @author Richard S. Stansbury
  * @version 1.0, 2017-09-21
  *
- * Implementation of a singly linked list node.
+ * Implementation of a doubly linked list node.
  */
 public class DLLNode<t> {
 

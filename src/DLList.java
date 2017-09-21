@@ -1,8 +1,8 @@
 /**
  * @author Richard S. Stansbury
- * @version 1.0, 2017-09-18
+ * @version 1.0, 2017-09-20
  *
- * Implementation of a singly linked list node with a head, but no tail.
+ * Implementation of a doubly linked list node with a head, but no tail.
  */
 public class DLList<t> {
 
