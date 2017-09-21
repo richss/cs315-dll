@@ -67,7 +67,6 @@ public class DLLNode<t> {
             cur = cur.prev;
         }
 
-
     }
 
 }

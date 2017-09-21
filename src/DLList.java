@@ -45,6 +45,58 @@ public class DLList<t> {
         size++;
     }
 
+
+    /**
+     * Adds an item to the list at a location.  If the location is out of bounds, it will add it to the
+     * front if less than zero or back if beyond the current size.
+     *
+     * If a value is already at that location, it is shifted to the right to make room for the new node.
+     *
+     * @param value
+     * @param location
+     */
+    public void addToLocation(t value, int location) {
+
+
+        //Check if empty
+        if (head == null) {
+            head = tail = new DLLNode<>(value);
+            size++;
+            return;
+        }
+
+        //Add to head
+        if (location <= 0) {
+            head = new DLLNode<>(value, null, head);
+            (head.next).prev = head;
+            size++;
+            return;
+        }
+
+        //Add to end (past end of list)
+        if (location >= size) {
+            tail = new DLLNode<>(value, tail, null);
+            (tail.prev).next = tail;
+            size++;
+            return;
+        }
+
+        //Otherwise, add to the middle
+        DLLNode<t> cur = head;
+        int i = 0;
+        while (i != location) {
+            cur = cur.next;
+            i++;
+        }
+
+        //Insert shifts the node currently at the location to the right
+        (cur.prev).next = new DLLNode<>(value, cur.prev, cur);
+        cur.prev = (cur.prev).next;
+        size++;
+        return;
+    }
+
+
     /**
      * Returns value of the ith node in the list
      * @param i - index (zero-indexed) of target node
@@ -162,6 +214,21 @@ public class DLList<t> {
         }
     }
 
+    /**
+     * @return size of linked list (number of nodes)
+     */
+    public int getSize() {
+        return size;
+    }
+
+
+    /**
+     * @return true if empty; false otherwise.
+     */
+    public boolean isEmpty() {
+        return (size==0); //Compare size == 0 to see if empty
+    }
+
     public static void main(String [] args) {
 
         DLList<String> list = new DLList<>();
@@ -231,6 +298,27 @@ public class DLList<t> {
         list.printAll();
         System.out.println("\nReverse:");
         list.printAllRev();
+
+        System.out.println("Test Adding at Locations");
+        list.addToLocation("Joe",-1); //Should add Joe to the tail of the list
+        System.out.println("Printing Lists for Add at Location - 0");
+        list.printAll();
+        list.printAllRev();
+        list.addToLocation("Bob", 2); //Should add bob to tail of list.
+        System.out.println("Printing Lists for Add at Location - 1");
+        list.printAll();
+        list.printAllRev();
+        list.addToLocation("Sam", 0); //Should add Sam to head of list.
+        System.out.println("Printing Lists for Add at Location - 2");
+        list.printAll();
+        list.printAllRev();
+        list.addToLocation("Ron", 1); //Should add Ron between Sam and Joe
+        System.out.println("Printing Lists for Add at Location - 3");
+        list.printAll();
+        list.printAllRev();
+        System.out.println("Size of List: " + list.getSize()); //Should be 4
+
+
 
     }
 
