@@ -19,6 +19,7 @@ public class DLLNode<t> {
     public DLLNode(t info) {
         this.info = info;
         this.next = null;
+        this.prev = null;
     }
 
     /**
