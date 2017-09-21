@@ -2,7 +2,7 @@
  * @author Richard S. Stansbury
  * @version 1.0, 2017-09-20
  *
- * 
+ *
  * Implementation of a doubly linked list node with a head, but no tail.
  */
 public class DLList<t> {
@@ -31,17 +31,8 @@ public class DLList<t> {
             head = tail = new DLLNode<>(value);
         }
         else {
-
-            //Traverse the list until last node is reached
-            DLLNode<t> cur = head;
-            while (cur.next != null) {
-                cur = cur.next;
-            }
-
-            //Add new note after last item on list (i.e. cur.next
-            tail = cur.next = new DLLNode<>(value);
-            tail.prev = cur;
-
+            tail.next = new DLLNode<>(value, tail, null);
+            tail = tail.next;
         }
         size++;
     }
@@ -161,6 +152,17 @@ public class DLList<t> {
             return tmp;
         }
 
+        //Special case - deleting tail
+        if (i==(size-1)) {
+
+            tmp = tail.info;
+            tail = tail.prev;
+            tail.next = null;
+            size--;
+            return tmp;
+
+        }
+
         //Traverse to the ith indexed item (zero indexed)
         int j = 0;
         DLLNode<t> cur = head;
@@ -175,17 +177,9 @@ public class DLList<t> {
         }
 
 
-        //Special case - deleting the tail
-        if (cur == tail) {
-            tail = cur.prev;
-            tail.next = null;
-        }
         //Normal Case - delete ith node and return its value.
-        else {
-            (cur.prev).next = cur.next;
-            (cur.next).prev = cur.prev;
-        }
-
+        (cur.prev).next = cur.next;
+        (cur.next).prev = cur.prev;
         size--;
         tmp = cur.info;
         return tmp;
